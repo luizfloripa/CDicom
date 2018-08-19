@@ -1,18 +1,12 @@
 <?php
-
-
 ini_set('max_execution_time', 600);
 require_once('class_dicom.php');
-
 
 $autoloader = join(DIRECTORY_SEPARATOR,[__DIR__,'vendor','autoload.php']);
 require $autoloader;
 
-
 use PHPOnCouch\CouchClient;
-use PHPOnCouch\Exceptions;
 use PHPOnCouch\CouchDocument;
-
 
 //Busca os DCM no diretório files
 $Directory = new RecursiveDirectoryIterator('files/');
@@ -40,12 +34,13 @@ function dicom_load($file)
     $client = new CouchClient('http://:@192.168.100.65:5984', 'dicom');
 
     $doc = new CouchDocument($client);
-
     //cria o documento e salva do couchdb
+        $key =  $arrayDoc["tag_0010_0020"]."|".$arrayDoc["tag_0020_000d"]."|".$arrayDoc["tag_0020_000e"]."|".$arrayDoc["tag_0008_0018"];
         try {
             $doc->set($arrayDoc);
+            //salva o binário no hbase
+            shell_exec("/home/unisul/hbase-1.2.1/bin/hbase shell ".$key.' "'.$file.'"');
         } catch (Exception $e) {
             echo "Document storage failed : " . $e->getMessage() . "<BR>\n";
         }
-
 }

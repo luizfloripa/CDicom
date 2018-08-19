@@ -38,11 +38,22 @@ class ComposerStaticInit06737c9951df163e6314ac5e4087a7ae
         ),
     );
 
+    public static $prefixesPsr0 = array (
+        'T' => 
+        array (
+            'Thrift' => 
+            array (
+                0 => __DIR__ . '/..' . '/leric/php-thrift/lib',
+            ),
+        ),
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit06737c9951df163e6314ac5e4087a7ae::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit06737c9951df163e6314ac5e4087a7ae::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit06737c9951df163e6314ac5e4087a7ae::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

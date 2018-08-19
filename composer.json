@@ -1,5 +1,9 @@
 {
     "require": {
-        "php-on-couch/php-on-couch": "^2.0"
+        "php-on-couch/php-on-couch": "^2.0",
+        "leric/php-thrift": "0.9.*"
+    },
+    "autoload": {
+        "classmap": ["thrift/"]
     }
 }
